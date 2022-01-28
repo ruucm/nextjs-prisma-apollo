@@ -1,0 +1,21 @@
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@notion-client": ["site-bases/default-base/lib/notion-client/src"],
+      "@notion-utils": ["site-bases/default-base/lib/notion-utils/src"],
+      "@notion-x": ["site-bases/default-base/lib/notion-x"],
+      "@notion-x/*": ["site-bases/default-base/lib/notion-x/*"],
+      "@notion-types": ["site-bases/default-base/lib/notion-types/src"]
+    },
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true
+  }
+}

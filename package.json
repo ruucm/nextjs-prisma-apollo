@@ -1,0 +1,60 @@
+{
+  "name": "notion.to",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "ruucm",
+  "scripts": {
+    "dev": "next -p 4002",
+    "build": "next build",
+    "start": "next start -p 4002",
+    "db:migrate": "prisma migrate dev --name init",
+    "db:seed": "prisma db seed --preview-feature",
+    "db:studio": "prisma studio",
+    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json src/pages/api/graphql/index.api",
+    "prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,md}\" \"site-bases/default-base/lib/**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.8",
+    "@prisma/client": "^3.8.1",
+    "apollo-server-micro": "^3.6.2",
+    "graphql": "^15.5.3",
+    "graphql-scalars": "1.10.0",
+    "graphql-tag": "^2.12.6",
+    "micro": "^9.3.4",
+    "micro-cors": "^0.1.1",
+    "next": "12.0.9",
+    "next-auth": "3.29.0",
+    "nexus": "^1.1.0",
+    "nexus-prisma": "^0.35.0",
+    "nodemailer": "^6.7.2",
+    "prettier": "^2.5.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.25.1",
+    "react-markdown": "7.1.2"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/next-auth": "3.13.0",
+    "@types/node": "16.11.21",
+    "@types/react": "17.0.38",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-header": "^3.1.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.22.0",
+    "prisma": "3.8.1",
+    "ts-node": "10.4.0",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "4.5.5"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}
