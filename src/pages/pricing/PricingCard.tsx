@@ -1,7 +1,7 @@
 export function PricingCard({
   product,
-  priceString = "",
-  billingInterval = "",
+  priceString = '',
+  billingInterval = '',
   onClick,
   buttonLabel,
 }) {
