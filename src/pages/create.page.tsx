@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { gql } from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 
-const Draft: React.FC = () => {
+const Create: React.FC = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -77,7 +77,7 @@ const Draft: React.FC = () => {
   )
 }
 
-export default Draft
+export default Create
 
 const Mutation = gql`
   mutation Mutation($title: String, $content: String) {
