@@ -40,8 +40,12 @@ const handler = async (req, res) => {
     const webhookSecret =
       process.env.STRIPE_WEBHOOK_SECRET_LIVE ??
       process.env.STRIPE_WEBHOOK_SECRET
-    let event
 
+    console.log('stripe', stripe)
+
+    console.log('webhookSecret', webhookSecret)
+
+    let event
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret)
     } catch (err) {
