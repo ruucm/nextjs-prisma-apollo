@@ -20,8 +20,6 @@ export const upsertProductRecord = async (product) => {
     metadata: product.metadata,
   }
 
-  console.log('productData', productData)
-
   await prisma.products.upsert({
     where: {
       id: product.id,
