@@ -11,15 +11,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//--------Next Auth------------
+//--------Auth------------
 
 model users {
   id              String          @id @default(uuid())
   email           String          @unique
   full_name       String?
   avatar_url      String?
-  posts           Post[]
   emailVerified   DateTime?       @map(name: "email_verified")
+  posts           Post[]
+  customers       customers?
+  subscriptions   subscriptions[]
 }
 
 model account {
@@ -62,6 +64,7 @@ model VerificationRequest {
   @@map(name: "verification_requests")
 }
 
+
 //--------CRUD------------
 
 model Post {
@@ -71,4 +74,83 @@ model Post {
   published Boolean @default(false)
   users     users?  @relation(fields: [usersId], references: [id])
   usersId   String? @default(uuid())
+}
+
+//--------Stripe------------
+
+model customers {
+  id                 String  @id @default(uuid())
+  stripe_customer_id String? @unique
+  users              users   @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model prices {
+  id                String                 @id
+  product_id        String?
+  active            Boolean?
+  description       String?
+  unit_amount       BigInt?
+  currency          String?
+  type              pricing_type?
+  interval          pricing_plan_interval?
+  interval_count    Int?
+  trial_period_days Int?
+  metadata          Json?
+  products          products?              @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subscriptions     subscriptions[]
+}
+
+model products {
+  id          String   @id
+  active      Boolean?
+  name        String?
+  description String?
+  image       String?
+  metadata    Json?
+  prices      prices[]
+}
+
+model subscriptions {
+  id                   String               @id
+  user_id              String               @default(uuid())
+  status               subscription_status?
+  metadata             Json?
+  price_id             String?
+  quantity             Int?
+  cancel_at_period_end Boolean?
+  created              DateTime             @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  current_period_start DateTime             @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  current_period_end   DateTime             @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  ended_at             DateTime?            @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  cancel_at            DateTime?            @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  canceled_at          DateTime?            @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  trial_start          DateTime?            @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  trial_end            DateTime?            @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  prices               prices?              @relation(fields: [price_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users                users                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+
+//--------Enums------------
+
+enum pricing_plan_interval {
+  day
+  week
+  month
+  year
+}
+
+enum pricing_type {
+  one_time
+  recurring
+}
+
+enum subscription_status {
+  trialing
+  active
+  canceled
+  incomplete
+  incomplete_expired
+  past_due
+  unpaid
 }
