@@ -3,8 +3,8 @@
     @apply p-8 flex-row justify-between items-center; 
 
     // 🖌 content styles
+    @apply text-gray-500;
     a {
-        @apply text-gray-500;
         &[data-active='true'] {
             @apply text-gray-900 font-bold;
         }
