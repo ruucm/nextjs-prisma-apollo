@@ -5,8 +5,6 @@ import { toDateTime } from '@/utils'
 const stripeSecret =
   process.env.STRIPE_SECRET_KEY_LIVE ?? process.env.STRIPE_SECRET_KEY
 
-console.log('stripeSecret', stripeSecret)
-
 export const stripe = new Stripe(stripeSecret, {
   // https://github.com/stripe/stripe-node#configuration
   apiVersion: '2020-08-27',
