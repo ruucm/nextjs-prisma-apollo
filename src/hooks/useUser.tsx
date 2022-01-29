@@ -22,8 +22,8 @@ export const UserContextProvider = (props) => {
   const value = {
     session,
     user,
-    userLoaded: !sessionLoading,
-    dataLoaded: !loading,
+    sessionLoading,
+    dbLoading: loading,
     refetch,
 
     Drafts: data?.Drafts,

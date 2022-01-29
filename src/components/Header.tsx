@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname
 
-  const { session, userLoaded } = useUser()
+  const { session, sessionLoading } = useUser()
 
   return (
     <nav className={styles.nav}>
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className={styles.right}>
-        {!userLoaded ? (
+        {sessionLoading ? (
           <p>Validating session ...</p>
         ) : (
           <>
