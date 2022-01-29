@@ -2,19 +2,15 @@ import Stripe from 'stripe'
 import prisma from '@/lib/prisma'
 import { toDateTime } from '@/utils'
 
-export const stripe = new Stripe(
-  process.env.STRIPE_SECRET_KEY_LIVE ?? process.env.STRIPE_SECRET_KEY,
-  {
-    // https://github.com/stripe/stripe-node#configuration
-    apiVersion: '2020-08-27',
-    // Register this as an official Stripe plugin.
-    // https://stripe.com/docs/building-plugins#setappinfo
-    appInfo: {
-      name: 'NotionTo',
-      version: '0.1.0',
-    },
-  }
-)
+const stripeSecret =
+  process.env.STRIPE_SECRET_KEY_LIVE ?? process.env.STRIPE_SECRET_KEY
+
+console.log('stripeSecret', stripeSecret)
+
+export const stripe = new Stripe(stripeSecret, {
+  // https://github.com/stripe/stripe-node#configuration
+  apiVersion: '2020-08-27',
+})
 
 export const upsertProductRecord = async (product) => {
   const productData = {

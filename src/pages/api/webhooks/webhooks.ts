@@ -41,8 +41,6 @@ const handler = async (req, res) => {
       process.env.STRIPE_WEBHOOK_SECRET_LIVE ??
       process.env.STRIPE_WEBHOOK_SECRET
 
-    console.log('stripe', stripe)
-
     console.log('webhookSecret', webhookSecret)
 
     let event
