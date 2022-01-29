@@ -5,6 +5,7 @@ A simple repo includes CRUD with authentification.
 ## Includes
 - DB: postgresql with prisma
 - Auth: next-auth (v3)
+- Subscription: Stripe's customer portal
 
 ## Misc
 - GraphQL + Apollo for cosuming DB
