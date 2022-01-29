@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Layout from '../components/Layout'
 import Router from 'next/router'
 import { gql } from 'graphql-tag'
 import { useMutation } from '@apollo/client'
@@ -21,7 +20,7 @@ const Create: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <>
       <div>
         <form onSubmit={submitData}>
           <h1>New Draft</h1>
@@ -73,7 +72,7 @@ const Create: React.FC = () => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </>
   )
 }
 

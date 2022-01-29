@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Layout from '../components/Layout'
 import Post, { PostProps } from '../components/Post'
 import { useUser } from '@/hooks/useUser'
 
@@ -16,15 +15,15 @@ const Drafts: React.FC<Props> = (props) => {
 
   if (!session) {
     return (
-      <Layout>
+      <>
         <h1>My Drafts</h1>
         <div>You need to be authenticated to view this page.</div>
-      </Layout>
+      </>
     )
   }
 
   return (
-    <Layout>
+    <>
       <div className="page">
         <h1>My Drafts</h1>
         <main>
@@ -49,7 +48,7 @@ const Drafts: React.FC<Props> = (props) => {
           margin-top: 2rem;
         }
       `}</style>
-    </Layout>
+    </>
   )
 }
 
