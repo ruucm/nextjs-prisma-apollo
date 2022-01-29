@@ -1,7 +1,7 @@
 import { useUser } from '@/hooks/useUser'
 import prisma from '@/lib/prisma'
 import { getStripe, postData } from '@/utils'
-import { signIn, useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { PricingCard } from './PricingCard'
@@ -24,7 +24,7 @@ const PricingPage: React.FC<Props> = ({ productsString }) => {
   const handleCheckout = async (price) => {
     // setPriceIdLoading(price.id)
     if (!session) {
-      return signIn()
+      return router.push('/auth/signin')
     }
     if (subscription) {
       return router.push('/account')
