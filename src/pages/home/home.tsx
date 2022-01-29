@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Layout from '@/components/Layout'
 import Post, { PostProps } from '@/components/Post'
 import { gql } from 'graphql-tag'
@@ -42,7 +42,7 @@ const Blog: React.FC<Props> = (props) => {
 
 export default Blog
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const {
     data: { Posts },
   } = await apolloClient.query({ query: Query })
