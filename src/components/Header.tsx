@@ -3,13 +3,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/client'
 import styles from './Header.module.scss'
+import { useUser } from '@/hooks/useUser'
 
 const Header: React.FC = () => {
   const router = useRouter()
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname
 
-  const [session, loading] = useSession()
+  const { session, userLoaded } = useUser()
 
   return (
     <nav className={styles.nav}>
@@ -22,7 +23,7 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className={styles.right}>
-        {loading ? (
+        {!userLoaded ? (
           <p>Validating session ...</p>
         ) : (
           <>

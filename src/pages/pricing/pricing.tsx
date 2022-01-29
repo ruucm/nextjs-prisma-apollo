@@ -1,7 +1,6 @@
 import { useUser } from '@/hooks/useUser'
 import prisma from '@/lib/prisma'
 import { getStripe, postData } from '@/utils'
-import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { PricingCard } from './PricingCard'
@@ -14,7 +13,7 @@ type Props = {
 const PricingPage: React.FC<Props> = ({ productsString }) => {
   const products = superjson.parse<Array<any>>(productsString) || []
 
-  const [session, loading] = useSession()
+  const { session, userLoaded } = useUser()
   const router = useRouter()
 
   const { subscription } = useUser()
