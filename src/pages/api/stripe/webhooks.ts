@@ -5,7 +5,7 @@ import {
   upsertPriceRecord,
   manageSubscriptionStatusChange,
   stripe,
-} from './handlers'
+} from './shared'
 
 // Stripe requires the raw body to construct the event.
 export const config = {

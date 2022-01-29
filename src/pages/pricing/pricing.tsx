@@ -32,7 +32,7 @@ const PricingPage: React.FC<Props> = ({ productsString }) => {
 
     try {
       const { sessionId } = await postData({
-        url: '/api/create-checkout-session',
+        url: '/api/stripe/create-checkout-session',
         data: { price },
         token: session.accessToken,
       })

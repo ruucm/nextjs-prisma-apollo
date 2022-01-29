@@ -15,7 +15,7 @@
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json src/pages/api/graphql/index.api",
-    "stripe:listen": "stripe listen --forward-to=localhost:4002/api/webhooks",
+    "stripe:listen": "stripe listen --forward-to=localhost:4002/api/stripe/webhooks",
     "prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,md}\" \"site-bases/default-base/lib/**/*.{ts,tsx}\""
   },
   "dependencies": {

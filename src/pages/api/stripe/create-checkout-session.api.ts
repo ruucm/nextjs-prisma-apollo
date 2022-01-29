@@ -1,5 +1,5 @@
 import { getURL } from '@/utils'
-import { createOrRetrieveCustomer, stripe } from './webhooks/handlers'
+import { createOrRetrieveCustomer, stripe } from './shared'
 import { getSession } from 'next-auth/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 

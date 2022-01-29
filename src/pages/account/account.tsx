@@ -12,7 +12,7 @@ const AccountPage: React.FC<Props> = (props) => {
   const redirectToCustomerPortal = async () => {
     // setLoading(true);
     const { url, error } = await postData({
-      url: '/api/create-portal-link',
+      url: '/api/stripe/create-portal-link',
       token: session.accessToken,
     })
     if (error) return alert(error.message)
