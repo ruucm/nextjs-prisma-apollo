@@ -1,0 +1,6 @@
+@tailwind base;
+@import "./reset.css";
+@import "./flex-normalize.css";
+
+@tailwind components;
+@tailwind utilities;

@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import { apolloClient } from '@/helpers'
 import { UserContextProvider } from '@/hooks/useUser'
+import '@/styles/main.css'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
