@@ -22,25 +22,30 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className={styles.right}>
-        {loading && <p>Validating session ...</p>}
-        {!session && (
-          <Link href="/auth/signin">
-            <a data-active={isActive('/signup')}>Log in</a>
-          </Link>
-        )}
-        {session && (
+        {loading ? (
+          <p>Validating session ...</p>
+        ) : (
           <>
-            <p>
-              {session.user.name} ({session.user.email})
-            </p>
-            <Link href="/create">
-              <button>
-                <a>New post</a>
-              </button>
-            </Link>
-            <button onClick={() => signOut()}>
-              <a>Log out</a>
-            </button>
+            {!session && (
+              <Link href="/auth/signin">
+                <a data-active={isActive('/signup')}>Log in</a>
+              </Link>
+            )}
+            {session && (
+              <>
+                <p>
+                  {session.user.name} ({session.user.email})
+                </p>
+                <Link href="/create">
+                  <button>
+                    <a>New post</a>
+                  </button>
+                </Link>
+                <button onClick={() => signOut()}>
+                  <a>Log out</a>
+                </button>
+              </>
+            )}
           </>
         )}
       </div>
