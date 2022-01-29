@@ -8,6 +8,7 @@ import prisma from '../../lib/prisma'
 import { useUser } from '@/hooks/useUser'
 import { useMutation } from '@apollo/client'
 import { gql } from 'graphql-tag'
+import styles from './[id].module.scss'
 
 const Post: React.FC<PostProps> = (props) => {
   const { session, loading, refetch } = useUser()
@@ -29,30 +30,31 @@ const Post: React.FC<PostProps> = (props) => {
       <div>
         <h2>{title}</h2>
         <p>By {props?.users?.full_name || 'Unknown author'}</p>
-        {/* @ts-ignore */}
-        <ReactMarkdown source={props.content} />
-        {!props.published && userHasValidSession && postBelongsToUser && (
-          <button
-            onClick={async () => {
-              await publishPost({ variables: { postId: props.id } })
-              refetch() // update drafts (useUser)
-              await Router.push('/')
-            }}
-          >
-            Publish
-          </button>
-        )}
-        {userHasValidSession && postBelongsToUser && (
-          <button
-            onClick={async () => {
-              await deletePost({ variables: { postId: props.id } })
-              refetch() // update drafts (useUser)
-              await Router.push('/')
-            }}
-          >
-            Delete
-          </button>
-        )}
+        <ReactMarkdown children={props.content} />
+        <div className={styles.actions}>
+          {!props.published && userHasValidSession && postBelongsToUser && (
+            <button
+              onClick={async () => {
+                await publishPost({ variables: { postId: props.id } })
+                refetch() // update drafts (useUser)
+                await Router.push('/')
+              }}
+            >
+              Publish
+            </button>
+          )}
+          {userHasValidSession && postBelongsToUser && (
+            <button
+              onClick={async () => {
+                await deletePost({ variables: { postId: props.id } })
+                refetch() // update drafts (useUser)
+                await Router.push('/')
+              }}
+            >
+              Delete
+            </button>
+          )}
+        </div>
       </div>
       <style jsx>{`
         .page {

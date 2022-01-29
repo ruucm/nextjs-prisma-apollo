@@ -1,0 +1,27 @@
+.nav {
+    // 🪟 layout styles
+    @apply p-8 flex-row justify-between items-center; 
+    // 🖌 content styles
+    a {
+        @apply text-gray-500;
+        &[data-active='true'] {
+            @apply text-gray-900 font-bold;
+        }
+    }
+}
+
+.left {
+    // 🪟 layout styles
+    @apply flex-row gap-4;
+}
+.right {
+    // 🪟 layout styles
+    @apply flex-row items-center gap-4;
+
+    // 🖌 content styles
+    a {
+        border: 1px solid black;
+        padding: 0.5rem 1rem;
+        border-radius: 3px;
+    }
+}

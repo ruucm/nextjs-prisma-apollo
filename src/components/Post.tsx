@@ -19,8 +19,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     <div onClick={() => Router.push('/p/[id]', `/p/${post.id}`)}>
       <h2>{post.title}</h2>
       <small>By {authorName}</small>
-      {/* @ts-ignore */}
-      <ReactMarkdown source={post.content} />
+      <ReactMarkdown children={post.content} />
       <style jsx>{`
         div {
           color: inherit;
