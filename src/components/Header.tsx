@@ -33,9 +33,11 @@ const Header: React.FC = () => {
             )}
             {session && (
               <>
-                <p>
-                  {session.user.name} ({session.user.email})
-                </p>
+                <Link href="/account">
+                  <a data-active={isActive('/account')}>
+                    {session.user.name} ({session.user.email})
+                  </a>
+                </Link>
                 <Link href="/create">
                   <button>
                     <a>New post</a>
