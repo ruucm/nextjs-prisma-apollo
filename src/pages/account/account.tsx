@@ -7,7 +7,7 @@ import React from 'react'
 type Props = {}
 
 const AccountPage: React.FC<Props> = (props) => {
-  const { session, subscription } = useUser()
+  const { session, subscription, dataLoaded } = useUser()
 
   const redirectToCustomerPortal = async () => {
     // setLoading(true);
@@ -32,6 +32,7 @@ const AccountPage: React.FC<Props> = (props) => {
       </button>
       <br />
       <br />
+      {!dataLoaded && 'Loading data...'}
       {subscription && (
         <>
           <p>Manage your subscription on Stripe.</p>
