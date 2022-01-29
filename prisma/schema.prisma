@@ -76,7 +76,7 @@ model Post {
   usersId   String? @default(uuid())
 }
 
-//--------Stripe------------
+//--------Subscription------------
 
 model customers {
   id                 String  @id @default(uuid())
