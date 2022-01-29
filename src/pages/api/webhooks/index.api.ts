@@ -1,1 +1,1 @@
-export { default } from './webhooks'
+export { default, config } from './webhooks'
