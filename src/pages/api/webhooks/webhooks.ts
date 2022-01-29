@@ -33,7 +33,7 @@ const relevantEvents = new Set([
   'customer.subscription.deleted',
 ])
 
-const webhookHandler = async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     const buf = await buffer(req)
     const sig = req.headers['stripe-signature']
@@ -101,4 +101,4 @@ const webhookHandler = async (req, res) => {
   }
 }
 
-export default webhookHandler
+export default handler
