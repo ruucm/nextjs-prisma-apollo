@@ -7,13 +7,25 @@ import {
 } from 'graphql-scalars'
 import cors from 'micro-cors'
 import { NextApiHandler } from 'next'
-import { asNexusMethod, makeSchema } from 'nexus'
+import { asNexusMethod, enumType, makeSchema } from 'nexus'
 import path from 'path'
 import { GRAPHQL_API_BASE } from '@/consts'
+import { getSession } from 'next-auth/client'
 import { Mutation } from './mutation'
 import { Query } from './query'
-import { Post, usersT } from './types'
-import { getSession } from 'next-auth/client'
+import {
+  Post,
+  usersT,
+  subscriptionsT,
+  productsT,
+  pricesT,
+  customersT,
+} from './types'
+import {
+  pricing_plan_interval,
+  pricing_type,
+  subscription_status,
+} from 'nexus-prisma'
 
 const jsonScalar = new GraphQLScalarType({
   ...JSONObjectResolver,
@@ -44,9 +56,18 @@ export const schema = makeSchema({
     asNexusMethod(bigIntScalar, 'bigint'),
     asNexusMethod(Void, 'void'),
 
+    // enumTypes
+    enumType(subscription_status),
+    enumType(pricing_type),
+    enumType(pricing_plan_interval),
+
     // objectTypes
     Post,
     usersT,
+    subscriptionsT,
+    productsT,
+    pricesT,
+    customersT,
 
     // queryTypes
     Query,

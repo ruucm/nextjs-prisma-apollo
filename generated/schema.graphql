@@ -35,10 +35,83 @@ type Query {
   Drafts: [Post]
   Post(postId: String!): Post
   Posts: [Post]
+  subscriptionBy(userId: String!): [subscriptions]
 }
 
 """Represents NULL values"""
 scalar Void
+
+type customers {
+  id: ID!
+  stripe_customer_id: String
+  users: users!
+}
+
+type prices {
+  active: Boolean
+  currency: String
+  description: String
+  id: ID!
+  interval: pricing_plan_interval
+  interval_count: Int
+  metadata: Json
+  product_id: String
+  products: products
+  subscriptions: [subscriptions!]!
+  trial_period_days: Int
+  type: pricing_type
+  unit_amount: BigInt
+}
+
+enum pricing_plan_interval {
+  day
+  month
+  week
+  year
+}
+
+enum pricing_type {
+  one_time
+  recurring
+}
+
+type products {
+  active: Boolean
+  description: String
+  id: ID!
+  image: String
+  metadata: Json
+  name: String
+  prices: [prices!]!
+}
+
+enum subscription_status {
+  active
+  canceled
+  incomplete
+  incomplete_expired
+  past_due
+  trialing
+  unpaid
+}
+
+type subscriptions {
+  cancel_at: DateTime
+  cancel_at_period_end: Boolean
+  canceled_at: DateTime
+  created: DateTime!
+  current_period_end: DateTime!
+  ended_at: DateTime
+  id: ID!
+  metadata: Json
+  price_id: String
+  prices: prices
+  quantity: Int
+  status: subscription_status
+  trial_start: DateTime
+  user_id: String!
+  users: users!
+}
 
 type users {
   avatar_url: String

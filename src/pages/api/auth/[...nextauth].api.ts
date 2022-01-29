@@ -57,8 +57,8 @@ const options = {
   secret: process.env.SECRET,
   callbacks: {
     session: async (session, user) => {
+      // save more user data on the session for the server-side.
       session.user.userId = user.id
-      session.user.subscriptions = user.subscriptions
       return Promise.resolve(session)
     },
     async redirect(url, baseUrl) {

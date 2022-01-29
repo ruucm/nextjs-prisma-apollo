@@ -4,7 +4,6 @@ import { intArg, objectType, stringArg } from 'nexus'
 export const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    // GraphQL Demo
     t.nullable.field('createPost', {
       type: 'Post',
       args: {

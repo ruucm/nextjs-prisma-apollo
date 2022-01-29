@@ -3,7 +3,8 @@ import prisma from '@/lib/prisma'
 
 export const Query = queryType({
   definition(t) {
-    // GraphQL Demo
+    //--------CRUD------------
+
     t.field('Post', {
       type: 'Post',
       args: {
@@ -35,6 +36,26 @@ export const Query = queryType({
           },
         })
       },
+    })
+
+    //--------Subscription------------
+
+    t.list.field('subscriptionBy', {
+      type: 'subscriptions',
+      args: { userId: nonNull(stringArg()) },
+      resolve: (_, args, ctx) =>
+        prisma.subscriptions.findMany({
+          where: {
+            users: { id: args.userId },
+            OR: [{ status: 'trialing' }, { status: 'active' }],
+          },
+          include: {
+            prices: true, // Returns price fields defined in types.ts (nexus)
+          },
+          orderBy: {
+            created: 'desc',
+          },
+        }),
     })
   },
 })

@@ -11,6 +11,7 @@ export const UserContextProvider = (props) => {
   const [session, sessionLoading] = useSession()
   const { loading, data, refetch } = useQuery(Query, {
     fetchPolicy: 'cache-and-network',
+    variables: { userId: user?.userId ?? '' },
     errorPolicy: 'all', // get relation using gql emits weird error, this error policy gives data even if it has the error.
   })
 
@@ -26,6 +27,7 @@ export const UserContextProvider = (props) => {
     refetch,
 
     Drafts: data?.Drafts,
+    subscription: data?.subscriptionBy[0], // return single value. (latest one)
   }
   return <UserContext.Provider value={value} {...props} />
 }
@@ -39,12 +41,32 @@ export const useUser = () => {
 }
 
 const Query = gql`
-  query Query {
+  query Query($userId: String!) {
     Drafts {
       id
       title
       users {
         full_name
+      }
+    }
+
+    subscriptionBy(userId: $userId) {
+      id
+      metadata
+      status
+      price_id
+      quantity
+      cancel_at_period_end
+      created
+      current_period_end
+      ended_at
+      cancel_at
+      canceled_at
+      trial_start
+      prices {
+        products {
+          name
+        }
       }
     }
   }

@@ -55,6 +55,9 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  pricing_plan_interval: "day" | "month" | "week" | "year"
+  pricing_type: "one_time" | "recurring"
+  subscription_status: "active" | "canceled" | "incomplete" | "incomplete_expired" | "past_due" | "trialing" | "unpaid"
 }
 
 export interface NexusGenScalars {
@@ -78,6 +81,46 @@ export interface NexusGenObjects {
     title?: string | null; // String
   }
   Query: {};
+  customers: { // root type
+    id: string; // ID!
+    stripe_customer_id?: string | null; // String
+  }
+  prices: { // root type
+    active?: boolean | null; // Boolean
+    currency?: string | null; // String
+    description?: string | null; // String
+    id: string; // ID!
+    interval?: NexusGenEnums['pricing_plan_interval'] | null; // pricing_plan_interval
+    interval_count?: number | null; // Int
+    metadata?: NexusGenScalars['Json'] | null; // Json
+    product_id?: string | null; // String
+    trial_period_days?: number | null; // Int
+    type?: NexusGenEnums['pricing_type'] | null; // pricing_type
+    unit_amount?: NexusGenScalars['BigInt'] | null; // BigInt
+  }
+  products: { // root type
+    active?: boolean | null; // Boolean
+    description?: string | null; // String
+    id: string; // ID!
+    image?: string | null; // String
+    metadata?: NexusGenScalars['Json'] | null; // Json
+    name?: string | null; // String
+  }
+  subscriptions: { // root type
+    cancel_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    cancel_at_period_end?: boolean | null; // Boolean
+    canceled_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    created: NexusGenScalars['DateTime']; // DateTime!
+    current_period_end: NexusGenScalars['DateTime']; // DateTime!
+    ended_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string; // ID!
+    metadata?: NexusGenScalars['Json'] | null; // Json
+    price_id?: string | null; // String
+    quantity?: number | null; // Int
+    status?: NexusGenEnums['subscription_status'] | null; // subscription_status
+    trial_start?: NexusGenScalars['DateTime'] | null; // DateTime
+    user_id: string; // String!
+  }
   users: { // root type
     avatar_url?: string | null; // String
     email: string; // String!
@@ -95,7 +138,7 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
@@ -114,6 +157,53 @@ export interface NexusGenFieldTypes {
     Drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     Post: NexusGenRootTypes['Post'] | null; // Post
     Posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    subscriptionBy: Array<NexusGenRootTypes['subscriptions'] | null> | null; // [subscriptions]
+  }
+  customers: { // field return type
+    id: string; // ID!
+    stripe_customer_id: string | null; // String
+    users: NexusGenRootTypes['users']; // users!
+  }
+  prices: { // field return type
+    active: boolean | null; // Boolean
+    currency: string | null; // String
+    description: string | null; // String
+    id: string; // ID!
+    interval: NexusGenEnums['pricing_plan_interval'] | null; // pricing_plan_interval
+    interval_count: number | null; // Int
+    metadata: NexusGenScalars['Json'] | null; // Json
+    product_id: string | null; // String
+    products: NexusGenRootTypes['products'] | null; // products
+    subscriptions: NexusGenRootTypes['subscriptions'][]; // [subscriptions!]!
+    trial_period_days: number | null; // Int
+    type: NexusGenEnums['pricing_type'] | null; // pricing_type
+    unit_amount: NexusGenScalars['BigInt'] | null; // BigInt
+  }
+  products: { // field return type
+    active: boolean | null; // Boolean
+    description: string | null; // String
+    id: string; // ID!
+    image: string | null; // String
+    metadata: NexusGenScalars['Json'] | null; // Json
+    name: string | null; // String
+    prices: NexusGenRootTypes['prices'][]; // [prices!]!
+  }
+  subscriptions: { // field return type
+    cancel_at: NexusGenScalars['DateTime'] | null; // DateTime
+    cancel_at_period_end: boolean | null; // Boolean
+    canceled_at: NexusGenScalars['DateTime'] | null; // DateTime
+    created: NexusGenScalars['DateTime']; // DateTime!
+    current_period_end: NexusGenScalars['DateTime']; // DateTime!
+    ended_at: NexusGenScalars['DateTime'] | null; // DateTime
+    id: string; // ID!
+    metadata: NexusGenScalars['Json'] | null; // Json
+    price_id: string | null; // String
+    prices: NexusGenRootTypes['prices'] | null; // prices
+    quantity: number | null; // Int
+    status: NexusGenEnums['subscription_status'] | null; // subscription_status
+    trial_start: NexusGenScalars['DateTime'] | null; // DateTime
+    user_id: string; // String!
+    users: NexusGenRootTypes['users']; // users!
   }
   users: { // field return type
     avatar_url: string | null; // String
@@ -142,6 +232,53 @@ export interface NexusGenFieldTypeNames {
     Drafts: 'Post'
     Post: 'Post'
     Posts: 'Post'
+    subscriptionBy: 'subscriptions'
+  }
+  customers: { // field return type name
+    id: 'ID'
+    stripe_customer_id: 'String'
+    users: 'users'
+  }
+  prices: { // field return type name
+    active: 'Boolean'
+    currency: 'String'
+    description: 'String'
+    id: 'ID'
+    interval: 'pricing_plan_interval'
+    interval_count: 'Int'
+    metadata: 'Json'
+    product_id: 'String'
+    products: 'products'
+    subscriptions: 'subscriptions'
+    trial_period_days: 'Int'
+    type: 'pricing_type'
+    unit_amount: 'BigInt'
+  }
+  products: { // field return type name
+    active: 'Boolean'
+    description: 'String'
+    id: 'ID'
+    image: 'String'
+    metadata: 'Json'
+    name: 'String'
+    prices: 'prices'
+  }
+  subscriptions: { // field return type name
+    cancel_at: 'DateTime'
+    cancel_at_period_end: 'Boolean'
+    canceled_at: 'DateTime'
+    created: 'DateTime'
+    current_period_end: 'DateTime'
+    ended_at: 'DateTime'
+    id: 'ID'
+    metadata: 'Json'
+    price_id: 'String'
+    prices: 'prices'
+    quantity: 'Int'
+    status: 'subscription_status'
+    trial_start: 'DateTime'
+    user_id: 'String'
+    users: 'users'
   }
   users: { // field return type name
     avatar_url: 'String'
@@ -170,6 +307,9 @@ export interface NexusGenArgTypes {
     Post: { // args
       postId: string; // String!
     }
+    subscriptionBy: { // args
+      userId: string; // String!
+    }
   }
 }
 
@@ -183,7 +323,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 
